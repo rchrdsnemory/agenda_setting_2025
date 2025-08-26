@@ -109,7 +109,8 @@ ASP_Exp1<-ASP_Exp1%>%
          all_or_none = ifelse(PublicPattern == "YYYYY" | PublicPattern == "YBBBB", as.character(PublicPattern),  "Mixed"),
          all_or_none = factor(all_or_none, levels = c("YYYYY", "Mixed", "YBBBB")))%>%
   ungroup()
-
+# check output
+ASP_Exp1
 
 # Pivot and save a long format data
 ASP_Exp1_long<-ASP_Exp1%>%
@@ -211,7 +212,6 @@ ASP_Exp1_augmentedLong<-ASP_Exp1_augmented%>%
          param_power = case_when(modelSource=="fixMod"~ fittedParam_fixMod_power,
                                  modelSource=="varMod"~ fittedParam_varMod_power, TRUE ~ NA))
 
-
 #### save the varPower mod fits for a visualization
 ASP_Exp1_varFits<-ASP_Exp1_augmentedLong%>%
   filter(modelSource == "varMod")%>%
@@ -233,7 +233,7 @@ ASP_Exp1_varFits<-ASP_Exp1_augmentedLong%>%
   relocate(c(Measure, SpkrID, humanPattern), .before="modelPattern")%>%
   mutate(SpkrID = factor(SpkrID, levels = c("Spkr2", "Spkr3", "Spkr4", "Spkr5")))%>%
   rename(votingRound = SpkrID)
-
+str(ASP_Exp1_varFits)
 glimpse(ASP_Exp1_augmented)
 
 # For a visualization: save average informant judgments as both 0-1 and 1-20, and save parameter bins
@@ -776,7 +776,8 @@ ASP_Exp1_result_SpkrOrder<-ASP_Exp1_long%>%
   select(-data, -effect, -group)%>%
   filter(str_detect(term, "sd_")==F)%>%
   arrange(all_or_none)
-
+# check output
+ASP_Exp1_result_SpkrOrder
 
 # UNCOMMENT: to see visualization of coefficients
 ASP_Exp1_result_SpkrOrder%>%
